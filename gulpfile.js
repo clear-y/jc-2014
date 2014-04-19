@@ -21,19 +21,19 @@ var gulp = require('gulp'),
     lr = require('tiny-lr'),
     server = lr(),
     // sass
-    sassDir = 'assets/sass',
-    targetCssDir = 'css',
+    sassDir = '_assets/sass',
+    targetCssDir = 'public/css',
     // js
-    jsDir = 'assets/js',
-    targetJsDir = 'js',
+    jsDir = '_assets/js',
+    targetJsDir = 'public/js',
     // img
-    imgDir = 'assets/img/**/*',
-    targetImgDir = 'img';
+    imgDir = '_assets/img/**/*',
+    targetImgDir = 'public/img';
 
 gulp.task('css', function() {
     return gulp.src(sassDir + '/main.sass')
         .pipe(sass({ style: 'compressed'}).on('error', util.log))
-        .pipe(autoprefix('last 10 version'))
+        .pipe(autoprefix('last 2 version', 'ie 8', 'ie 7'))
         .pipe(gulp.dest(targetCssDir));
 });
 
