@@ -1,0 +1,35 @@
+=breakpoint( $point )
+    @if $point == 'x-large'
+        @media (min-width: 1280px)
+            @content
+    @else if $point == 'large'
+        @media (min-width: 1024px)
+            @content
+    @else if $point == 'medium'
+        @media (min-width: 768px)
+            @content
+    @else if $point == 'small'
+        @media (min-width: 480px)
+            @content
+
+=clearfix
+    zoom: 1
+    &:before,
+    &:after
+        content: "\0020"
+        display: block
+        height: 0
+        overflow: hidden
+    &:after
+        clear: both
+
+%clearfix
+    zoom: 1
+    &:before,
+    &:after
+        content: "\0020"
+        display: block
+        height: 0
+        overflow: hidden
+    &:after
+        clear: both
