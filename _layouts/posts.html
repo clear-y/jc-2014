@@ -1,0 +1,11 @@
+{% include header.html %}
+
+    <section class="posts">
+        {% for post in site.posts %}
+            <article class="post">
+                <h2 class="post-name">{{ post.title }}</h2>
+            </article>
+        {% endfor %}
+    </section>
+
+{% include footer.html %}
