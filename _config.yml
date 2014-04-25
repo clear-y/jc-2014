@@ -1,3 +1,5 @@
 name: JC.2014
 markdown: redcarpet
 pygments: true
+include: [.htaccess]
+url: http://jakecleary.net
