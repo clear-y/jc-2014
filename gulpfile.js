@@ -19,15 +19,15 @@ var gulp = require('gulp'),
     // live reload
     livereload = require('gulp-livereload'),
     lr = require('tiny-lr'),
-    server = lr(),
-    
+    server = lr();
+
 //
 // Assets
 //
 var paths = {
     assets: {
         stylesDir: '_assets/styles',
-        stylesFiles: '_assets/styles/**/*.scss',
+        stylesFiles: '_assets/styles/**/*.sass',
         jsDir: '_assets/js/',
         jsFiles: '_assets/js/**/*.js',
         imgDir: '_assets/img',
