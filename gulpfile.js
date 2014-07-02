@@ -2,7 +2,7 @@ var gulp = require('gulp'),
     // css
     sass = require('gulp-ruby-sass'),
     autoprefix = require('gulp-autoprefixer'),
-    minifycss = require('gulp-minify-css'),
+    minify = require('gulp-minify-css'),
     // js
     jshint = require('gulp-jshint'),
     uglify = require('gulp-uglify'),
@@ -20,48 +20,101 @@ var gulp = require('gulp'),
     livereload = require('gulp-livereload'),
     lr = require('tiny-lr'),
     server = lr(),
-    // sass
-    sassDir = '_assets/sass',
-    targetCssDir = 'public/css',
-    // js
-    jsDir = '_assets/js',
-    targetJsDir = 'public/js',
-    // img
-    imgDir = '_assets/img/**/*',
-    targetImgDir = 'public/img';
+    
+//
+// Assets
+//
+var paths = {
+    assets: {
+        stylesDir: '_assets/styles',
+        stylesFiles: '_assets/styles/**/*.scss',
+        jsDir: '_assets/js/',
+        jsFiles: '_assets/js/**/*.js',
+        imgDir: '_assets/img',
+        imgFiles: '_assets/img/**/*'
+    },
+    public: {
+        styles: 'public/styles',
+        js: 'public/js',
+        img: 'public/img',
+    }
+}
 
-gulp.task('css', function() {
-    return gulp.src(sassDir + '/main.sass')
-        .pipe(sass({ style: 'compressed'}).on('error', util.log))
-        .pipe(autoprefix('last 2 version', 'ie 8', 'ie 7'))
-        .pipe(gulp.dest(targetCssDir));
+//
+// Complile Scss
+//
+gulp.task('styles', function() {
+    gulp.src(paths.assets.stylesDir + '/main.sass')
+        .pipe(sass({style: 'expanded'}).on('error', util.log))
+        .pipe(autoprefix('last 4 version', 'ie 9'))
+        .pipe(gulp.dest(paths.public.styles))
+        .pipe(notify('Styles task completed.'));
 });
 
+//
+// Concantinate JS
+//
 gulp.task('js', function() {
-    gulp.src([jsDir + '/base.js', jsDir + '/*.js'])
+    gulp.src(paths.assets.jsFiles)
+        .pipe(concat('functions.js'))
+        .pipe(gulp.dest(paths.public.js))
+        .pipe(notify('JS task completed.'));
+});
+
+//
+// Optimize images
+//
+gulp.task('img', function() {
+    gulp.src(paths.assets.imgFiles)
+        .pipe(cache(imagemin({ optimizationLevel: 3, progressive: true, interlaced: true })))
+        .pipe(gulp.dest(paths.public.img))
+        .pipe(notify('Img task completed.'));
+});
+
+//
+// Clean out the public directory
+//
+gulp.task('clean', function() {
+    gulp.src([paths.public.styles, paths.public.js, paths.public.img], {read: false})
+        .pipe(clean());
+});
+
+//
+// Watch for changes
+//
+gulp.task('watch', function() {
+    gulp.watch(paths.assets.stylesFiles, ['styles']);
+    gulp.watch(paths.assets.jsFiles, ['js']);
+    gulp.watch(paths.assets.imgFiles, ['img']);
+});
+
+//
+// Build assets in production mode
+//
+gulp.task('deploy', function() {
+    // Build minified Scss
+    gulp.src(paths.assets.stylesDir + '/main.sass')
+        .pipe(sass({style: 'compressed'}).on('error', util.log))
+        .pipe(autoprefix('last 4 version', 'ie 9'))
+        .pipe(minify())
+        .pipe(gulp.dest(paths.public.styles))
+        .pipe(notify('Styles task completed.'));
+
+    // Stip out debug code and minify JS
+    gulp.src(paths.assets.jsFiles)
         .pipe(concat('functions.js'))
         .pipe(strip())
         .pipe(uglify())
-        .pipe(gulp.dest(targetJsDir));
+        .pipe(gulp.dest(paths.public.js))
+        .pipe(notify('JS task completed.'));
+
+    // Img task is the same
+    gulp.start('img');
 });
 
-gulp.task('img', function() {
-    gulp.src(imgDir)
-        .pipe(cache(imagemin({ optimizationLevel: 3, progressive: true, interlaced: true })))
-        .pipe(gulp.dest(targetImgDir));
-});
-
-gulp.task('clean', function() {
-  return gulp.src([targetCssDir, targetJsDir, targetImgDir], {read: false})
-    .pipe(clean());
-});
-
-gulp.task('watch', function() {
-    gulp.watch(sassDir + '/**/*.sass', ['css']);
-    gulp.watch(jsDir + '/**/*.js', ['js']);
-    gulp.watch(imgDir + '/**/*', ['img']);
-});
-
+//
+// Defualt task - Do everything
+//
 gulp.task('default', ['clean'], function() {
-    gulp.start('css', 'js', 'img', 'watch');
+    gulp.start('styles', 'js', 'img', 'watch');
 });
