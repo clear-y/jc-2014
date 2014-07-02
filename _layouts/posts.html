@@ -2,7 +2,7 @@
     <main class="posts">
         {% for post in site.posts %}
             <article class="post">
-                <a href="{{ post.url }}"><h2 class="post-name">{{ post.title }}</h2></a>
+                <a href="{{ post.url }}"><h2 class="post__heading">{{ post.title }}</h2></a>
             </article>
         {% endfor %}
     </section>

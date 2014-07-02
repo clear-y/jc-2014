@@ -1,8 +1,19 @@
 {% include header.html %}
 
     <main class="about">
-        <h2 class="about-heading">hello &amp; welcome</h2>
+        <h2 class="about__heading">Hello &amp; Welcome</h2>
         <p>I'm Jake Cleary, a web developer from the small south coast town of Worthing, UK. This is just a place where I'll share my <a href="/blog/">learning process and work</a>. Check out my stuff on <a href="https://github.com/clear-y" target="_blank">github</a>, or if you want to chat, just give me a <a href="mailto:shout@jakecleary.net?subject=Hi">shout</a>.</p>
     </main>
+
+    <aside class="blog">
+        <h2 class="blog__heading">Blog</h2>
+        <div class="posts">
+            {% for post in site.posts %}
+                <article class="post">
+                    <a href="{{ post.url }}"><h3 class="post__heading">{{ post.title }}</h3></a>
+                </article>
+            {% endfor %}
+        </div>
+    </aside>
 
 {% include footer.html %}

@@ -1,12 +1,19 @@
 .posts
     .post
-        border-bottom: 3px solid $primary-off
-        padding: 1em 0
-        margin: 1em 0
+        padding: 0 0 $vertical-spacing/2 0
+        margin: 0 0 $vertical-spacing/2 0
+        border:
+            width: 0 0 3px
+            style: solid
+            color: $primary-off
+        &:first-child
+            padding-top: 0
         &:last-child
+            padding-bottom: 0
             border-bottom: none
-        h2
+        &__heading
             margin: 0
+            text-transform: lowercase
 
 .single-post
     .post-title
