@@ -1,4 +1,15 @@
+# Don't commit the generated site.
 _site
+
+# Fuck you, OSX.
 .DS_Store
+
+# Sass isn't doing me any favours, either.
 .sass-cache
+
+# I'll let this guy off.
 node_modules
+
+# We don't want to commit any generated assets
+public/*
+!public/favicon.ico

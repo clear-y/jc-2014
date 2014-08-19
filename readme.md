@@ -1,8 +1,8 @@
-jc-2014
-=======
+jakecleary.net
+==============
 
-New blog theme for 2014, built using the following:
+New blog theme for 2014, built using the following interesting tech:
 
-* HTML (Duh)
-* SASS (Strict) & Compass
+* SASS (Indented syntax)
+* Gulp
 * Jekyll
