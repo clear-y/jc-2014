@@ -1,7 +1,11 @@
 body
-    font-family: 'Helvetica', serif
+    font:
+        family: 'Source Code Pro', monospace
+        size: 16px
+        weight: normal
     line-height: 1.618
     color: $primary
+    color: lighten(#41535b,10%)
 
 h1,
 h2,
@@ -10,20 +14,27 @@ h4,
 h5,
 h6,
 p,
-ul
-    margin: 1em 0
+ul,
+ol
+    margin: 0 0 1em 0
+    font:
+        size: 1rem
+        weight: normal
 
 p,
 li
     a
-        border-bottom: 3px solid $primary-off
-        padding-bottom: 1px
-        color: $primary
-        transition: all .5s
-        &:hover
-            border-bottom-color: $secondary
-            color: $secondary
+        font-weight: 600
 
 a
     text-decoration: none
     color: inherit
+
+ul,
+ol
+    margin: 1rem 0
+    list-style:
+        type: none
+        position: inside
+    li:before
+        content: '* '

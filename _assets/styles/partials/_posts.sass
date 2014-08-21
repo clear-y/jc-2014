@@ -1,16 +1,20 @@
 .posts
     .post
         border-bottom: 3px solid $primary-off
-        padding: 1em 0
-        margin: 1em 0
+        //padding: 1rem 0
+        //margin: 1rem 0
         &:last-child
             border-bottom: none
+        &-date,
+        &-name
+            font:
+                size: 1rem
+                family: monospace
+        &-date
+            font-weight: 200
         &-name
             margin: 0
             display: inline-block
-        &-date
-            font-family: monospace
-            font-size: 16px
 
 .single-post
     .post-title
