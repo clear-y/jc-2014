@@ -2,13 +2,8 @@
 layout: default
 ---
 {% include header.html %}
-    <article class="single-post">
-        <header>
-            <h2 class="post-title">{{ page.title }}</h2>
-            <p class="meta">posted on <strong>{{ page.date | date_to_string }}</strong></p>
-        </header>
-        <main>
-            {{ content }}
-        </main>
-    </article>
+<article class="single-post">
+    <h2 class="post-title">{{ page.title }}</h2>
+    {{ content }}
+</article>
 {% include footer.html %}
