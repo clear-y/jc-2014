@@ -56,7 +56,7 @@ gulp.task('styles', function() {
 //
 gulp.task('js', function() {
     gulp.src(paths.assets.jsFiles)
-        .pipe(concat('functions.js'))
+        .pipe(concat('main.js'))
         .pipe(gulp.dest(paths.public.js))
         .pipe(notify('JS task completed.'));
 });
